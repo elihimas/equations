@@ -1,3 +1,8 @@
 package com.elihimas.equations.model
 
-data class Game(val equation: Equation, val shuffledOptions: List<Int>, val correctAnswer: Int)
+data class Game(
+    val equation: Equation,
+    val shuffledOptions: List<Int>,
+    val correctAnswer: Int,
+    var isRunning: Boolean = true
+)

@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.elihimas.equations.databinding.FragmentGameBinding
 import com.elihimas.equations.model.Equation
 import com.elihimas.equations.model.Game
+import com.elihimas.equations.model.RemainingTime
+import com.elihimas.equations.util.disable
 import com.elihimas.equations.util.setOnClickListener
 import com.elihimas.equations.util.updateTextAndTag
 import com.elihimas.equations.viewmodels.GameState
@@ -35,6 +37,7 @@ class GameFragment(private val viewModel: GameViewModel) : Fragment() {
 
     private fun initViewModel() {
         viewModel.game.observe(requireActivity(), this::updateGame)
+        viewModel.remainingTime.observe(requireActivity(), this::updateRemainingTime)
     }
 
     private fun updateGame(game: Game) {
@@ -48,10 +51,22 @@ class GameFragment(private val viewModel: GameViewModel) : Fragment() {
             btOption2.updateTextAndTag(options[1])
             btOption3.updateTextAndTag(options[2])
         }
+
+        if (!game.isRunning) {
+            disableButtons()
+        }
     }
+
+    private fun disableButtons() = allButtons().forEach(View::disable)
+
+    private fun allButtons() = listOf(binding.btOption1, binding.btOption2, binding.btOption3)
 
     private fun formatEquation(equation: Equation) =
         with(equation) { "$operand1 $operation $operand2" }
+
+    private fun updateRemainingTime(remainingTime: RemainingTime) {
+        binding.timeIndicator.scaleX = remainingTime.proportionalRemainingTime
+    }
 
     private fun initViews() {
         val state = viewModel.state.value

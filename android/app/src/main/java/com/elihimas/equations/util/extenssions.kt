@@ -13,3 +13,7 @@ fun View.setOnClickListener(function: () -> Unit) {
         function.invoke()
     }
 }
+
+fun View.disable() {
+    isEnabled = false
+}

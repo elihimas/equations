@@ -1,18 +1,18 @@
 package com.elihimas.equations.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.elihimas.equations.R
 import com.elihimas.equations.databinding.ActivityMainBinding
 import com.elihimas.equations.viewmodels.GameState
 import com.elihimas.equations.viewmodels.GameViewModel
+import org.koin.android.ext.android.inject
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<GameViewModel>()
+    private val viewModel: GameViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
